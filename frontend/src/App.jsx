@@ -38,4 +38,52 @@ function App() {
       })
       .catch(err => console.error(err));
   };
+   // Delete a user (DELETE)
+   const deleteUserById = (id) => {
+    axios.delete(`${API_URL}/${id}`)
+      .then(() => {
+        setUsers(users.filter(user => user.id !== id));
+      })
+      .catch(err => console.error(err));
+  };
+
+
+  return (
+    <>
+      <h1>CRUD Operations with Express & React</h1>
+      <input
+        type="text"
+        value={newUser}
+        onChange={(e) => setNewUser(e.target.value)}
+        placeholder="Enter new user"
+      />
+      <button onClick={addUser}>Add User</button>
+
+      {/* Update User */}
+      {updateUser.id && (
+        <div>
+          <input
+            type="text"
+            value={updateUser.name}
+            onChange={(e) => setUpdateUser({ ...updateUser, name: e.target.value })}
+            placeholder="Update user name"
+          />
+          <button onClick={() => updateUserById(updateUser.id)}>Update User</button>
+        </div>
+      )}
+
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>
+            {user.name}
+            <button onClick={() => setUpdateUser({ id: user.id, name: user.name })}>
+              Edit
+            </button>
+            <button onClick={() => deleteUserById(user.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
 }
+export default App
