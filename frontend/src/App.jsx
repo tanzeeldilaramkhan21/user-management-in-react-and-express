@@ -18,3 +18,15 @@ function App() {
   useEffect(()=>{
    fetchUsers()
   },[])
+  // Add a user (CREATE)
+  const addUser = () => {
+    axios.post(API_URL, { name: newUser })
+      .then(response => {
+        setUsers([...users, response.data]);
+        setNewUser(''); // Reset input
+        fetchUsers()
+      })
+      .catch(err => console.error(err));
+  };
+
+}
