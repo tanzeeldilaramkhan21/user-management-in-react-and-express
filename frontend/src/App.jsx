@@ -13,7 +13,7 @@ function App() {
      const content = response.data
      
      setUsers(content.data)
-  }
+  } 
  
   useEffect(()=>{
    fetchUsers()
